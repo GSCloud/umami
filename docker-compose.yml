@@ -1,0 +1,32 @@
+# Fred Brooker <git@gscloud.cz>
+# based on: https://github.com/umami-software/umami/blob/master/docker-compose.yml
+
+version: '3.9'
+services:
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-v2.6.1
+    container_name: ${UMAMI_CONTAINER_NAME}
+    ports:
+      - ${UMAMI_PORT}:3000
+    environment:
+      DATABASE_URL: postgresql://umami:${ADMIN_PASSWORD}@db:5432/umami
+      DATABASE_TYPE: postgresql
+      APP_SECRET: ${SECRET_KEY_BASE}
+    depends_on:
+      - db
+    restart: unless-stopped
+  db:
+    image: postgres:15-alpine
+    container_name: ${UMAMI_DB_CONTAINER_NAME}
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: ${ADMIN_PASSWORD}
+    volumes:
+      - ./umami-db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
