@@ -1,5 +1,6 @@
 #@author Fred Brooker <git@gscloud.cz>
-include .env
+include .env-dist
+-include .env
 
 has_php != command -v php 2>/dev/null
 um_status != docker inspect --format '{{json .State.Running}}' ${UMAMI_CONTAINER_NAME} 2>/dev/null | grep true
