@@ -63,7 +63,7 @@ docs:
 	@bash ./bin/create_pdf.sh
 
 pull:
-	@docker pull ghcr.io/umami-software/umami:postgresql-v2.6.1
+	@docker pull ghcr.io/umami-software/umami:postgresql-v2.6.2
 
 debug:
 	@docker compose up
