@@ -4,7 +4,7 @@
 version: '3.9'
 services:
   umami:
-    image: ghcr.io/umami-software/umami:postgresql-v2.6.2
+    image: ${UMAMI_IMAGE}
     container_name: ${UMAMI_CONTAINER_NAME}
     ports:
       - ${UMAMI_PORT}:3000

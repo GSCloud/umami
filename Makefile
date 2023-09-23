@@ -24,11 +24,11 @@ endif
 
 all: info
 info:
-	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.0 2023.08.31\n"
+	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.1 2023.09.23\n"
 	@echo "\e[0;1m📦️ Umami\e[0m container: \t $(umdot) \e[0;4m${UMAMI_CONTAINER_NAME}\e[0m \t🚀 http://localhost:${UMAMI_PORT}"
 	@echo "\e[0;1m📦️ DB\e[0m container: \t $(dbdot) \e[0;4m${UMAMI_DB_CONTAINER_NAME}\e[0m"
 	@echo ""
-	@echo " - \e[0;1m pull\e[0m - update Umami image"
+	@echo " - \e[0;1m pull\e[0m - update Umami image to ${UMAMI_IMAGE}"
 	@echo " - \e[0;1m install\e[0m - install containers"
 	@echo " - \e[0;1m start\e[0m - start containers"
 	@echo " - \e[0;1m stop\e[0m - stop containers"
@@ -63,7 +63,7 @@ docs:
 	@bash ./bin/create_pdf.sh
 
 pull:
-	@docker pull ghcr.io/umami-software/umami:postgresql-v2.6.2
+	@docker pull ${UMAMI_IMAGE}
 
 debug:
 	@docker compose up

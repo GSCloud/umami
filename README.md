@@ -11,7 +11,7 @@ URL: [http://localhost:3000](http://localhost:3000)
 login: **admin**  
 password: **umami**
 
-Change the `.env` file according to your needs.
+Copy `.env-dist` to `.env` and modify the file according to your needs.
 
 Author: Fred Brooker 💌 <git@gscloud.cz>  
 GS Cloud Ltd. [https://gscloud.cz] ⛅️
