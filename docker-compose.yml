@@ -13,7 +13,8 @@ services:
       DATABASE_TYPE: postgresql
       APP_SECRET: ${SECRET_KEY_BASE}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     restart: unless-stopped
   db:
     image: postgres:15-alpine
