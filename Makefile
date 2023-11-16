@@ -1,12 +1,12 @@
 #@author Fred Brooker <git@gscloud.cz>
 include .env
 
+run ?=
 has_php != command -v php 2>/dev/null
-um_status != docker inspect --format '{{json .State.Running}}' ${UMAMI_CONTAINER_NAME} 2>/dev/null | grep true
 db_status != docker inspect --format '{{json .State.Running}}' ${UMAMI_DB_CONTAINER_NAME} 2>/dev/null | grep true
+um_status != docker inspect --format '{{json .State.Running}}' ${UMAMI_CONTAINER_NAME} 2>/dev/null | grep true
 umdb_status := $(um_status)$(db_status)
 umdbok = truetrue
-run ?=
 
 ifneq ($(strip $(um_status)),)
 umdot=🟢
@@ -20,33 +20,31 @@ else
 dbdot=🔴
 endif
 
-
 all: info
 info:
-	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.1 2023.09.23\n"
-	@echo "\e[0;1m📦️ Umami\e[0m container: \t $(umdot) \e[0;4m${UMAMI_CONTAINER_NAME}\e[0m \t🚀 http://localhost:${UMAMI_PORT}"
-	@echo "\e[0;1m📦️ DB\e[0m container: \t $(dbdot) \e[0;4m${UMAMI_DB_CONTAINER_NAME}\e[0m"
+	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.2 2023-11-16\n"
+	@echo "\e[0;1m📦️ Umami\e[0m \t $(umdot) \e[0;4m${UMAMI_CONTAINER_NAME}\e[0m \t🚀 http://localhost:${UMAMI_PORT}"
+	@echo "\e[0;1m📦️ DB\e[0m \t\t $(dbdot) \e[0;4m${UMAMI_DB_CONTAINER_NAME}\e[0m"
 	@echo ""
-	@echo " - \e[0;1m pull\e[0m - update Umami image to ${UMAMI_IMAGE}"
 	@echo " - \e[0;1m install\e[0m - install containers"
 	@echo " - \e[0;1m start\e[0m - start containers"
 	@echo " - \e[0;1m stop\e[0m - stop containers"
 	@echo " - \e[0;1m pause\e[0m - pause containers"
 	@echo " - \e[0;1m unpause\e[0m - unpause containers"
-	@echo " - \e[0;1m kill\e[0m - kill containers"
 	@echo " - \e[0;1m test\e[0m - test containers, force reinstall"
-	@echo " - \e[0;1m stop\e[0m - stop containers"
+	@echo " - \e[0;1m pull\e[0m - pull/update Umami image: ${UMAMI_IMAGE}"
+	@echo " - \e[0;1m kill\e[0m - kill containers"
+	@echo " - \e[0;1m remove\e[0m - remove containers"
 	@echo " - \e[0;1m backup\e[0m - backup database"
 	@echo " - \e[0;1m restore\e[0m - restore database"
-	@echo " - \e[0;1m remove\e[0m - remove containers"
-	@echo " - \e[0;1m debug\e[0m - install containers, run interactively"
 	@echo " - \e[0;1m exec\e[0m - run shell inside Umami container"
 	@echo " - \e[0;1m exec run='<command>'\e[0m - run <command> inside Umami container"
+	@echo " - \e[0;1m debug\e[0m - install containers, run interactively"
 	@echo " - \e[0;1m config\e[0m - display Docker compose configuration"
-	@echo " - \e[0;1m jsoncontrol\e[0m - display a set of make control commands in JSON format"
+	@echo " - \e[0;1m jsoncontrol\e[0m - display a set of make control commands in JSON"
 	@echo " - \e[0;1m logs\e[0m - display logs"
 	@echo " - \e[0;1m purge\e[0m - delete persistent data ❗️"
-	@echo " - \e[0;1m docs\e[0m - build documentation into PDF format"
+	@echo " - \e[0;1m docs\e[0m - transpile documentation into PDF"
 	@echo ""
 
 jsoncontrol:
@@ -58,7 +56,7 @@ else
 endif
 
 docs:
-	@echo "🔨 \e[1;32m Building documentation\e[0m"
+	@echo "building documentation ..."
 	@bash ./bin/create_pdf.sh
 
 pull:
@@ -68,21 +66,25 @@ debug:
 	@docker compose up
 
 install:
-	@echo "\nINSTALL\n"
+	@echo "installing containers ..."
+	@date
 	@docker compose up -d
 	@echo "\n\e[0;1m📦️ Umami\e[0m: 🚀 http://localhost:${UMAMI_PORT}\n"
+	@date
+	@echo ""
 
 start:
-	@echo "\nSTART\n"
+	@echo "starting containers ..."
 	@docker start ${UMAMI_CONTAINER_NAME}
 	@docker start ${UMAMI_DB_CONTAINER_NAME}
 
 stop:
-	@echo "\nSTOP\n"
+	@echo "stopping containers ..."
 	@-docker stop ${UMAMI_CONTAINER_NAME}
 	@-docker stop ${UMAMI_DB_CONTAINER_NAME}
 
 kill:
+	@echo "😵"
 	@docker compose kill
 
 pause:
@@ -94,6 +96,7 @@ unpause:
 	@docker compose unpause
 
 remove:
+	@echo "removing containers ..."
 	@-docker compose rm ${UMAMI_CONTAINER_NAME} --force 2>/dev/null
 	@-docker compose rm ${UMAMI_DB_CONTAINER_NAME} --force 2>/dev/null
 
@@ -111,7 +114,10 @@ logs:
 	@docker logs -f ${UMAMI_CONTAINER_NAME}
 
 backup:
-	@echo "\nBACKUP\n"
+ifneq ($(shell id -u),0)
+	@echo "root permission required"
+	@sudo echo ""
+endif
 	@date
 	@docker compose down
 	@rm -rf bak
@@ -123,12 +129,14 @@ endif
 	@cp Makefile bak/
 	@cp .env bak/
 	@cp docker-compose.yml bak/
-	@echo "\nSTART\n"
-	@docker compose up -d
+	@-make install
 	@date
 
 restore: remove
-	@echo "\nRESTORE\n"
+ifneq ($(shell id -u),0)
+	@echo "root permission required"
+	@sudo echo ""
+endif
 	@date
 ifneq ($(shell id -u),0)
 	@echo "root permission required"
@@ -150,13 +158,11 @@ else
 	@echo "❗️ missing database archive"
 	exit 1
 endif
-
 endif
 	@-make install
 	@date
 
 purge:
-	@echo "\nPURGE\n"
 	@-docker rm ${UMAMI_CONTAINER_NAME}_static --force 2>/dev/null
 	@-docker rm ${UMAMI_DB_CONTAINER_NAME}_static --force 2>/dev/null
 	@echo "💀 deleting permanent storage"
@@ -167,12 +173,12 @@ endif
 
 test:
 ifneq ($(strip $(um_status)),)
-	@echo "🟢 Umami is up and running or paused"
+	@echo "🟢 Umami is up and running / paused"
 else
 	@echo "🔴 Umami is down"
 endif
 ifneq ($(strip $(db_status)),)
-	@echo "🟢 DB is up and running or paused"
+	@echo "🟢 DB is up and running / paused"
 else
 	@echo "🔴 DB is down"
 endif

@@ -13,5 +13,4 @@ password: **umami**
 
 Copy `.env-dist` to `.env` and modify the file according to your needs.
 
-Author: Fred Brooker 💌 <git@gscloud.cz>  
-GS Cloud Ltd. [https://gscloud.cz] ⛅️
+Author: Fred Brooker 💌 <git@gscloud.cz> ⛅️ GS Cloud Ltd. [https://gscloud.cz]
