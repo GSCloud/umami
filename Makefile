@@ -105,7 +105,7 @@ config:
 
 exec:
 ifneq ($(strip $(run)),)
-	@docker exec -it ${UMAMI_CONTAINER_NAME} $(run)
+	@docker exec ${UMAMI_CONTAINER_NAME} $(run)
 else
 	@docker exec -it ${UMAMI_CONTAINER_NAME} sh
 endif
