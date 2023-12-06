@@ -97,8 +97,8 @@ unpause:
 
 remove:
 	@echo "removing containers ..."
-	@-docker compose rm ${UMAMI_CONTAINER_NAME} --force 2>/dev/null
-	@-docker compose rm ${UMAMI_DB_CONTAINER_NAME} --force 2>/dev/null
+	@-docker rm ${UMAMI_CONTAINER_NAME} --force 2>/dev/null
+	@-docker rm ${UMAMI_DB_CONTAINER_NAME} --force 2>/dev/null
 
 config:
 	@docker compose config
@@ -162,7 +162,7 @@ endif
 	@-make install
 	@date
 
-purge:
+purge: remove
 	@-docker rm ${UMAMI_CONTAINER_NAME}_static --force 2>/dev/null
 	@-docker rm ${UMAMI_DB_CONTAINER_NAME}_static --force 2>/dev/null
 	@echo "💀 deleting permanent storage"
