@@ -22,7 +22,7 @@ endif
 
 all: info
 info:
-	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.2 2023-11-16\n"
+	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.3 2023-12-06\n"
 	@echo "\e[0;1m📦️ Umami\e[0m \t $(umdot) \e[0;4m${UMAMI_CONTAINER_NAME}\e[0m \t🚀 http://localhost:${UMAMI_PORT}"
 	@echo "\e[0;1m📦️ DB\e[0m \t\t $(dbdot) \e[0;4m${UMAMI_DB_CONTAINER_NAME}\e[0m"
 	@echo ""
@@ -56,7 +56,7 @@ else
 endif
 
 docs:
-	@echo "building documentation ..."
+	@echo "transpiling documentation ..."
 	@bash ./bin/create_pdf.sh
 
 pull:
@@ -66,8 +66,8 @@ debug:
 	@docker compose up
 
 install:
-	@echo "installing containers ..."
 	@date
+	@echo "installing containers ..."
 	@docker compose up -d
 	@echo "\n\e[0;1m📦️ Umami\e[0m: 🚀 http://localhost:${UMAMI_PORT}\n"
 	@date
@@ -88,11 +88,11 @@ kill:
 	@docker compose kill
 
 pause:
-	@echo "⏯️"
+	@echo "⏸️"
 	@docker compose pause
 
 unpause:
-	@echo "⏯️"
+	@echo "▶️"
 	@docker compose unpause
 
 remove:
@@ -163,8 +163,6 @@ endif
 	@date
 
 purge: remove
-	@-docker rm ${UMAMI_CONTAINER_NAME}_static --force 2>/dev/null
-	@-docker rm ${UMAMI_DB_CONTAINER_NAME}_static --force 2>/dev/null
 	@echo "💀 deleting permanent storage"
 ifneq ($(shell id -u),0)
 	@echo "root permission required"
@@ -173,12 +171,12 @@ endif
 
 test:
 ifneq ($(strip $(um_status)),)
-	@echo "🟢 Umami is up and running / paused"
+	@echo "🟢 Umami is up and running or paused"
 else
 	@echo "🔴 Umami is down"
 endif
 ifneq ($(strip $(db_status)),)
-	@echo "🟢 DB is up and running / paused"
+	@echo "🟢 DB is up and running or paused"
 else
 	@echo "🔴 DB is down"
 endif
