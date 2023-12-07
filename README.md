@@ -3,7 +3,8 @@
 ## Umami is an open source, privacy-focused alternative to Google Analytics
 
 Umami site: [https://umami.is](https://umami.is)  
-GitHub repository: [https://github.com/GSCloud/umami.git](https://github.com/GSCloud/umami.git)
+Umami repository: [https://github.com/umami-software/umami](https://github.com/umami-software/umami)  
+Umami Analytics in Docker repository: [https://github.com/GSCloud/umami](https://github.com/GSCloud/umami)
 
 ## Usage
 
