@@ -22,7 +22,7 @@ endif
 
 all: info
 info:
-	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.3 2023-12-06\n"
+	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.4 2024-01-12\n"
 	@echo "\e[0;1m📦️ Umami\e[0m \t $(umdot) \e[0;4m${UMAMI_CONTAINER_NAME}\e[0m \t🚀 http://localhost:${UMAMI_PORT}"
 	@echo "\e[0;1m📦️ DB\e[0m \t\t $(dbdot) \e[0;4m${UMAMI_DB_CONTAINER_NAME}\e[0m"
 	@echo ""
@@ -32,7 +32,6 @@ info:
 	@echo " - \e[0;1m pause\e[0m - pause containers"
 	@echo " - \e[0;1m unpause\e[0m - unpause containers"
 	@echo " - \e[0;1m test\e[0m - test containers, force reinstall"
-	@echo " - \e[0;1m pull\e[0m - pull/update Umami image: ${UMAMI_IMAGE}"
 	@echo " - \e[0;1m kill\e[0m - kill containers"
 	@echo " - \e[0;1m remove\e[0m - remove containers"
 	@echo " - \e[0;1m backup\e[0m - backup database"
@@ -58,9 +57,6 @@ endif
 docs:
 	@echo "transpiling documentation ..."
 	@bash ./bin/create_pdf.sh
-
-pull:
-	@docker pull ${UMAMI_IMAGE}
 
 debug:
 	@docker compose up
