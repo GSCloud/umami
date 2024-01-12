@@ -16,7 +16,7 @@ Run `make`:
 - pause - pause containers
 - unpause - unpause containers
 - test - test containers, force reinstall
-- pull - pull/update Umami image: ghcr.io/umami-software/umami:postgresql-v2.8.0
+- pull - pull/update Umami image: ghcr.io/umami-software/umami:postgresql-v2.9.0
 - kill - kill containers
 - remove - remove containers
 - backup - backup database
