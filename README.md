@@ -1,4 +1,4 @@
-# Umami Analytics in Docker and PostgreSQL v1.4 2024-01-12
+# Umami Analytics in Docker and PostgreSQL v1.5 2024-03-08
 
 ## Umami is an open source, privacy-focused alternative to Google Analytics
 
