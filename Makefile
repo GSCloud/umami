@@ -61,7 +61,7 @@ docs:
 debug:
 	@docker compose up
 
-install:
+install: remove
 	@date
 	@echo "installing containers ..."
 	@docker compose up -d
