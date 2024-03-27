@@ -1,7 +1,6 @@
 # Fred Brooker <git@gscloud.cz>
 # based on: https://github.com/umami-software/umami/blob/master/docker-compose.yml
 
-version: '3.9'
 services:
   umami:
     image: ${UMAMI_IMAGE}
