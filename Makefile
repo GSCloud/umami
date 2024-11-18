@@ -21,17 +21,17 @@ dbdot=🔴
 endif
 
 all: info
+
 info:
-	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.4 2024-01-12\n"
+	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.8 2024-11-18\n"
 	@echo "\e[0;1m📦️ Umami\e[0m \t $(umdot) \e[0;4m${UMAMI_CONTAINER_NAME}\e[0m \t🚀 http://localhost:${UMAMI_PORT}"
 	@echo "\e[0;1m📦️ DB\e[0m \t\t $(dbdot) \e[0;4m${UMAMI_DB_CONTAINER_NAME}\e[0m"
 	@echo ""
+
 	@echo " - \e[0;1m install\e[0m - install containers"
 	@echo " - \e[0;1m start\e[0m - start containers"
 	@echo " - \e[0;1m stop\e[0m - stop containers"
-	@echo " - \e[0;1m pause\e[0m - pause containers"
-	@echo " - \e[0;1m unpause\e[0m - unpause containers"
-	@echo " - \e[0;1m test\e[0m - test containers, force reinstall"
+	@echo " - \e[0;1m test\e[0m - test containers"
 	@echo " - \e[0;1m kill\e[0m - kill containers"
 	@echo " - \e[0;1m remove\e[0m - remove containers"
 	@echo " - \e[0;1m backup\e[0m - backup database"
@@ -40,19 +40,10 @@ info:
 	@echo " - \e[0;1m exec run='<command>'\e[0m - run <command> inside Umami container"
 	@echo " - \e[0;1m debug\e[0m - install containers, run interactively"
 	@echo " - \e[0;1m config\e[0m - display Docker compose configuration"
-	@echo " - \e[0;1m jsoncontrol\e[0m - display a set of make control commands in JSON"
 	@echo " - \e[0;1m logs\e[0m - display logs"
 	@echo " - \e[0;1m purge\e[0m - delete persistent data ❗️"
 	@echo " - \e[0;1m docs\e[0m - transpile documentation into PDF"
 	@echo ""
-
-jsoncontrol:
-ifneq ($(strip $(has_php)),)
-	@php -r 'echo json_encode(["control_set" => ["backup", "config", "debug", "exec", "install", "kill", "logs", "pause", "purge", "remove", "restore", "start", "stop", "test", "unpause"]], JSON_PRETTY_PRINT);'
-else
-	@echo "❗️ php parser is not installed"
-	@exit 99
-endif
 
 docs:
 	@echo "transpiling documentation ..."
@@ -82,14 +73,6 @@ stop:
 kill:
 	@echo "😵"
 	@docker compose kill
-
-pause:
-	@echo "⏸️"
-	@docker compose pause
-
-unpause:
-	@echo "▶️"
-	@docker compose unpause
 
 remove:
 	@echo "removing containers ..."
@@ -167,18 +150,17 @@ endif
 
 test:
 ifneq ($(strip $(um_status)),)
-	@echo "🟢 Umami is up and running or paused"
+	@echo "🟢 Umami is up"
 else
 	@echo "🔴 Umami is down"
 endif
 ifneq ($(strip $(db_status)),)
-	@echo "🟢 DB is up and running or paused"
+	@echo "🟢 DB is up"
 else
 	@echo "🔴 DB is down"
 endif
 ifneq ($(umdb_status), $(umdbok))
-	@-make install
-	@exit 1
+	@exit 255
 else
 	@exit 0
 endif
