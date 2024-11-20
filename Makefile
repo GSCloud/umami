@@ -2,7 +2,6 @@
 include .env
 
 run ?=
-has_php != command -v php 2>/dev/null
 db_status != docker inspect --format '{{json .State.Running}}' ${UMAMI_DB_CONTAINER_NAME} 2>/dev/null | grep true
 um_status != docker inspect --format '{{json .State.Running}}' ${UMAMI_CONTAINER_NAME} 2>/dev/null | grep true
 umdb_status := $(um_status)$(db_status)
@@ -23,8 +22,8 @@ endif
 all: info
 
 info:
-	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.8 2024-11-18\n"
-	@echo "\e[0;1m📦️ Umami\e[0m \t $(umdot) \e[0;4m${UMAMI_CONTAINER_NAME}\e[0m \t🚀 http://localhost:${UMAMI_PORT}"
+	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.9 2024-11-20\n"
+	@echo "\e[0;1m📦️ UMAMI\e[0m \t $(umdot) \e[0;4m${UMAMI_CONTAINER_NAME}\e[0m \t🚀 http://localhost:${UMAMI_PORT}"
 	@echo "\e[0;1m📦️ DB\e[0m \t\t $(dbdot) \e[0;4m${UMAMI_DB_CONTAINER_NAME}\e[0m"
 	@echo ""
 
@@ -36,8 +35,8 @@ info:
 	@echo " - \e[0;1m remove\e[0m - remove containers"
 	@echo " - \e[0;1m backup\e[0m - backup database"
 	@echo " - \e[0;1m restore\e[0m - restore database"
-	@echo " - \e[0;1m exec\e[0m - run shell inside Umami container"
-	@echo " - \e[0;1m exec run='<command>'\e[0m - run <command> inside Umami container"
+	@echo " - \e[0;1m exec\e[0m - run shell inside container"
+	@echo " - \e[0;1m exec run='<command>'\e[0m - run <command> inside container"
 	@echo " - \e[0;1m debug\e[0m - install containers, run interactively"
 	@echo " - \e[0;1m config\e[0m - display Docker compose configuration"
 	@echo " - \e[0;1m logs\e[0m - display logs"

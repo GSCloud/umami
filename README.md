@@ -1,4 +1,4 @@
-# Umami Analytics in Docker and PostgreSQL v1.8 2024-03-27
+# Umami in Docker and PostgreSQL v1.9 2024-11-20
 
 ## Umami is an open source, privacy-focused alternative to Google Analytics
 
@@ -18,8 +18,8 @@ Run `make`:
 - remove - remove containers
 - backup - backup database
 - restore - restore database
-- exec - run shell inside Umami container
-- exec run='\<command\>' - run \<command\> inside Umami container
+- exec - run shell inside container
+- exec run='\<command\>' - run \<command\> inside container
 - debug - install containers, run interactively
 - config - display Docker compose configuration
 - logs - display logs
