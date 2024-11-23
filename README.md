@@ -28,7 +28,7 @@ Run `make`:
 
 URL: [http://localhost:3000](http://localhost:3000)  
 login: **admin**  
-password: **umami**
+password: **umami**
 
 Copy `.env-dist` to `.env` and modify the file according to your needs.
 
