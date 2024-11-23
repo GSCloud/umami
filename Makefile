@@ -45,7 +45,7 @@ info:
 	@echo ""
 
 docs:
-	@echo "transpiling documentation ..."
+	@echo "transpiling documentation"
 	@bash ./bin/create_pdf.sh
 
 debug:
@@ -53,19 +53,18 @@ debug:
 
 install: remove
 	@date
-	@echo "installing containers ..."
+	@echo "installing containers"
 	@docker compose up -d
 	@echo "\n\e[0;1m📦️ Umami\e[0m: 🚀 http://localhost:${UMAMI_PORT}\n"
 	@date
-	@echo ""
 
 start:
-	@echo "starting containers ..."
+	@echo "starting containers"
 	@docker start ${UMAMI_CONTAINER_NAME}
 	@docker start ${UMAMI_DB_CONTAINER_NAME}
 
 stop:
-	@echo "stopping containers ..."
+	@echo "stopping containers"
 	@-docker stop ${UMAMI_CONTAINER_NAME}
 	@-docker stop ${UMAMI_DB_CONTAINER_NAME}
 
@@ -74,7 +73,7 @@ kill:
 	@docker compose kill
 
 remove:
-	@echo "removing containers ..."
+	@echo "removing containers"
 	@-docker rm ${UMAMI_CONTAINER_NAME} --force 2>/dev/null
 	@-docker rm ${UMAMI_DB_CONTAINER_NAME} --force 2>/dev/null
 
