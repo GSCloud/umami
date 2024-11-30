@@ -22,7 +22,7 @@ endif
 all: info
 
 info:
-	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.9 2024-11-20\n"
+	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.10 2024-11-30\n"
 	@echo "\e[0;1m📦️ UMAMI\e[0m \t $(umdot) \e[0;4m${UMAMI_CONTAINER_NAME}\e[0m \t🚀 http://localhost:${UMAMI_PORT}"
 	@echo "\e[0;1m📦️ DB\e[0m \t\t $(dbdot) \e[0;4m${UMAMI_DB_CONTAINER_NAME}\e[0m"
 	@echo ""
