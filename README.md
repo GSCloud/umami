@@ -1,4 +1,4 @@
-# Umami in Docker v1.10 2024-11-30
+# Umami in Docker v1.11 2024-12-18
 
 ## Umami is an open source, privacy-focused alternative to Google Analytics
 
@@ -18,10 +18,10 @@ Run `make`:
 - remove - remove containers
 - backup - backup database
 - restore - restore database
-- exec - run shell inside container
-- exec run='\<command\>' - run \<command\> inside container
-- debug - install containers, run interactively
-- config - display Docker compose configuration
+- exec - run interactive shell
+- exec run='\<command\>' - run \<command\> in shell
+- debug - run interactively
+- config - display configuration
 - logs - display logs
 - purge - delete persistent data ❗️
 - docs - transpile documentation into PDF

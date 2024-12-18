@@ -22,7 +22,7 @@ endif
 all: info
 
 info:
-	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.10 2024-11-30\n"
+	@echo "\n\e[1;32mUmami in Docker 👾\e[0m v1.11 2024-12-18\n"
 	@echo "\e[0;1m📦️ UMAMI\e[0m \t $(umdot) \e[0;4m${UMAMI_CONTAINER_NAME}\e[0m \t🚀 http://localhost:${UMAMI_PORT}"
 	@echo "\e[0;1m📦️ DB\e[0m \t\t $(dbdot) \e[0;4m${UMAMI_DB_CONTAINER_NAME}\e[0m"
 	@echo ""
@@ -35,10 +35,10 @@ info:
 	@echo " - \e[0;1m remove\e[0m - remove containers"
 	@echo " - \e[0;1m backup\e[0m - backup database"
 	@echo " - \e[0;1m restore\e[0m - restore database"
-	@echo " - \e[0;1m exec\e[0m - run shell inside container"
-	@echo " - \e[0;1m exec run='<command>'\e[0m - run <command> inside container"
-	@echo " - \e[0;1m debug\e[0m - install containers, run interactively"
-	@echo " - \e[0;1m config\e[0m - display Docker compose configuration"
+	@echo " - \e[0;1m exec\e[0m - run interactive shell"
+	@echo " - \e[0;1m exec run='<command>'\e[0m - run <command> in shell"
+	@echo " - \e[0;1m debug\e[0m - run interactively"
+	@echo " - \e[0;1m config\e[0m - display configuration"
 	@echo " - \e[0;1m logs\e[0m - display logs"
 	@echo " - \e[0;1m purge\e[0m - delete persistent data ❗️"
 	@echo " - \e[0;1m docs\e[0m - transpile documentation into PDF"
