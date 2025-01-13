@@ -56,7 +56,7 @@ install: remove
 	@date
 	@echo "installing containers"
 	@docker compose up -d
-	@echo "\n\e[0;1m📦️ Umami\e[0m: 🚀 http://localhost:${UMAMI_PORT}\n"
+	@echo "\n\e[0;1m📦️ Umami\e[0m 🚀 http://localhost:${UMAMI_PORT}\n"
 	@date
 
 start:
